@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="template.xhtml">
+
+
+<ui:define name="uniqueStyle">
+<h:head>
+	<link type="text/css" rel="stylesheet" 
+		href="#{request.contextPath}/static/css/controleCaixa.css" />
+</h:head> 
+</ui:define>
+
+<ui:define name="titulo">Controle de estoque</ui:define>
+
+<ui:define name="conteudo"> 
+<p:growl id="msg" life="5000"  />
+<h:form id="formCreate">
+
+	<div class="principal">
+		<div class="caixa-secundaria">
+			<div>
+				<p:outputLabel value="Produto" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleEstoqueBean.estoque.produto}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Data e hora" for="@next" /><br/>
+				<p:datePicker class="input-style" id="inline" value="#{controleEstoqueBean.estoque.hora}"
+						inline="true" showTime="true" timeInput="true" />
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Quantidade" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleEstoqueBean.estoque.quantidade}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Custo" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleEstoqueBean.estoque.custoUnidade}"/>
+			</div>
+			<br/>
+			
+				<p:commandButton class="input-style" value="Gravar" action="#{controleEstoqueBean.gravar()}"
+					process="@form" update="@form, msg, formEdit"/>
+			
+		</div>
+	</div>
+			
+</h:form>	
+<br/>
+
+
+<h:form id="formEdit">
+	<p:dataTable value="#{controleEstoqueBean.estoques}" var="estoqueAtual" 
+			paginatorPosition="top"	paginator="true" rows="20">
+		
+		<p:column headerText="Produto">
+			<h:outputText value="#{estoqueAtual.produto}" />
+		</p:column>	
+			
+		<p:column headerText="Hora">
+			<h:outputText value="#{estoqueAtual.hora}" />
+		</p:column>
+		
+		<p:column headerText="Quantidade">
+			<h:outputText value="#{estoqueAtual.quantidade}" />
+		</p:column>
+		
+		<p:column headerText="Custo unidade">
+			<p:outputLabel value="#{estoqueAtual.custoUnidade}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Saldo">
+			<p:outputLabel value="#{estoqueAtual.saldo}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Editar">
+			<p:commandButton action="#{controleEstoqueBean.carregarEstoque(estoqueAtual)}" 
+					value="Editar" process="@form" update="formCreate"/>
+		</p:column>
+		<p:column headerText="Excluir">
+        	<p:commandButton value="Excluir" process="@form" action="#{controleEstoqueBean.excluir(estoqueAtual)}" update="@form, msg" />
+        </p:column>
+        
+	</p:dataTable>
+	
+        <h:outputText value="Soma dos saldos: #{controleEstoqueBean.calcularSomaSaldo()}" />
+      
+</h:form>	
+<br/><br/><br/>
+</ui:define>	
+</ui:composition> 
+</html>

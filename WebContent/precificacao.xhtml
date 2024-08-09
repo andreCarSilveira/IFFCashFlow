@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head>
+<body>
+<ui:composition template="template.xhtml">
+
+<ui:define name="uniqueStyle">
+<h:head>
+	<link type="text/css" rel="stylesheet" 
+		href="#{request.contextPath}/static/css/precificacao.css" />
+</h:head> 
+</ui:define>
+
+<ui:define name="titulo">Precificação</ui:define>
+
+<ui:define name="conteudo"> 
+<p:growl id="msg" life="5000"  />
+
+
+
+
+
+<h:form id="formCreate">
+
+	<div class="principal">
+		<div class="caixa-secundaria">
+			<div>
+				<p:outputLabel value="Produto" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.nome}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Unidade" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.unidade}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Previsão de demanda(unidades)" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.previsaoDemanda}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Impostos:" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.impostos}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Margem lucro" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.margemLucro}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Custo fixo" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.custoFixo}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Custo variavel" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.custoVariavel}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Custos e despesas fixos unitario" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.custoFixoUnitario}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Custo e despesas variavel unitario" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{precificacaoBean.produto.custoVariavelUnitario}"/>
+			</div>
+			<br/>	
+
+				<p:commandButton class="input-style" value="Gravar" action="#{precificacaoBean.gravar()}"
+					process="@form" update="@form, msg, formEdit"/>
+			
+		</div>
+	</div>
+			
+</h:form>	
+
+
+
+
+
+
+
+<h:form id="formEdit">
+	<p:dataTable value="#{precificacaoBean.produtos}" var="prodAtual" 
+			paginatorPosition="top"	paginator="true" 
+				rows="20" >
+		<p:column headerText="Nome">
+			<h:outputText value="#{prodAtual.nome}" />
+		</p:column>
+		<p:column headerText="Unidade">
+			<h:outputText value="#{prodAtual.unidade}" />
+		</p:column>
+		<p:column headerText="Demanda">
+			<h:outputText value="#{prodAtual.previsaoDemanda}" />
+		</p:column>
+		<p:column headerText="Impostos">
+			<h:outputText value="#{prodAtual.impostos}" />
+		</p:column>
+		<p:column headerText="Lucro">
+			<h:outputText value="#{prodAtual.margemLucro}" />
+		</p:column>
+		<p:column headerText="Fixo">
+			<p:outputLabel value="#{prodAtual.custoFixo}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		<p:column headerText="Variavel">
+			<p:outputLabel value="#{prodAtual.custoVariavel}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		<p:column headerText="FixoUnitario">
+			<p:outputLabel value="#{prodAtual.custoFixoUnitario}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		<p:column headerText="VariavelUnitario">
+			<p:outputLabel value="#{prodAtual.custoVariavelUnitario}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		<p:column headerText="Venda">
+			<p:outputLabel value="#{prodAtual.precoVenda}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		
+		
+		<p:column headerText="Editar">
+			<p:commandButton action="#{precificacaoBean.carregarProduto(prodAtual)}" 
+					value="Editar" process="@form" update="formCreate"/>
+		</p:column>
+					<p:column headerText="Excluir">
+        <p:commandButton value="Excluir" process="@form" action="#{precificacaoBean.excluir(prodAtual)}" update="@form, msg" />
+            </p:column>
+	</p:dataTable>
+</h:form>	
+<br/><br/><br/>
+
+</ui:define>	
+</ui:composition>
+</body> 
+</html>

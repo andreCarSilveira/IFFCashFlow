@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" 
+		href="#{request.contextPath}/static/css/template.css" />
+	<ui:insert name="uniqueStyle"></ui:insert>
+</h:head>  
+<body> 
+
+	
+	
+	
+ <header>
+        <h1><ui:insert name="titulo"></ui:insert></h1>
+        <nav>
+            <ul>
+                <li><a href="constSocietaria.xhtml">Constituíção societária</a></li>
+                <li><a href="orcamento.xhtml">Orçamento</a></li>
+                <li><a href="precificacao.xhtml">Precificação</a></li>
+                <li><a href="resultadoExercicio.xhtml">Resultado exercicio</a></li>
+                <li><a href="projecaoVendas.xhtml">Projeção vendas</a></li>
+                <li><a href="controleEstoque.xhtml">Controle estoque</a></li>
+                <li><a href="controleCaixa.xhtml">Controle caixa</a></li>
+            </ul>
+        </nav>
+    </header>
+	
+	<br />
+	<div class="conteudo">
+		<ui:insert name="conteudo"></ui:insert>
+	</div>		
+
+
+    <footer>
+        <p>IFFCashFlow © 2024</p>
+    </footer>
+    
+    	
+<div class="sidebar">
+	<p:sidebar widgetVar="sidebar1">
+		<p>1 - Itens obrigatórios:</p>
+		<br></br>
+		<p>1.1 - Antes da feira</p>
+		<ul>
+			<li>a) Dados da empresa</li>
+			<li>b) Orçamento de compras</li>
+			<li>c) Precificação de Produtos</li>
+			<li>d) Projeção de Vendas por Produto</li>
+			<li>e) Demonstração do Resultado do Exercício Projetado</li>
+		</ul>
+		<br/>
+		<p>1.2 - Depois da feira</p>
+		<ul>
+			<li>a) Documentos Fiscais de Compra e Venda</li>
+			<li>b) Fichas de Controle de Estoque</li>
+			<li>c) Controle de Caixa</li>
+			<li>d) Detalhamento das Vendas</li>
+			<li>e) Demonstração do Resultado do Exercício</li>
+		</ul>
+		<br/>
+		<h4>Obs: Preencha somente os campos com fundo branco da
+			planilha; os registros devem ser realizados no mínimo a cada hora
+			de operação; a Ficha de Controle de Estoque deve conter apenas 1
+			produto. Duplique-a se necessário.</h4>
+		<br/>	
+		
+	</p:sidebar>
+</div>
+
+</body> 
+</html>

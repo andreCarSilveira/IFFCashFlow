@@ -1,0 +1,158 @@
+.panelGrid1 {
+	margin-bottom: 10px;
+}
+
+.panelGrid1 td {
+	background-color: #90ee90;
+}
+
+.panelGrid2 {
+	font-size: 16px;
+	width: 100%;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+	color: #245b3b;
+}
+
+.panelGrid2 td {
+	background-color: #90ee90;
+}
+
+.panelGrid2 td:nth-child(1){
+	width: 70%;
+}
+
+.panelGrid2 td:nth-child(2){
+	width: 15%;
+}
+
+.dataTable {
+	margin-top: 20px;
+}
+
+.dataTable th {
+	background-color: #90ee90;
+}
+
+.dataTable th:nth-child(1){
+	width: 67%;
+}
+
+
+.tabela1 {
+	display: flex;
+	border-top: 1px solid #545454;
+	border-bottom: 1px solid #545454;
+}
+
+.conteudoOg {
+	padding: 10px 30px;
+	width: 50%;
+	
+}
+
+.conteudoOg ul {
+	padding: 0;
+	margin: 0;
+}
+
+.conteudoOg p {
+	font-weight: bold;
+	margin: 0;
+}
+
+.conteudoOg li {
+	list-style: none;
+	background-color: white !important;
+	padding: 0px !important;
+}
+
+.conteudoOg .cabecalho {
+	background-color: #bcd8c4;
+	text-align: center;
+	font-size: 20px;
+	justify-content: center;
+}
+
+.conteudoOg {
+	width: 50%;
+}
+
+.conteudoOg .cabecalho2 {
+	display: flex;
+	font-size: 20px;
+}
+
+.empresa {
+	display: flex;
+	width: 100%;
+	background-color: white;
+	margin-left: 10px;
+	padding: 0px 10px;
+	align-items: center;
+	border-bottom: 2px solid black;
+}
+
+.titulo {
+	display: flex;
+	justify-content: center;
+	color: #245b3b;
+	font-weight: bold;
+}
+
+#forms {
+	display: grid; 
+	grid-template-columns: 50% 50%;
+	justify-content : center;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+#forms div {
+	margin: 0 auto;
+	align-items: center;
+}
+
+.btnGravar {
+	width: 20%;
+	justify-content: center;
+}
+
+.btnGravar2 {
+	width: 25%;
+	justify-content: center;
+}
+
+.formElementos {
+	justify-content: center;
+	margin: 0 auto;
+	display: flex;
+}
+
+.formElementos label {
+	color: #245b3b;
+	font-weight: bold;
+}
+
+.formElementos input {
+	border: 1px solid #9ac5a8;
+}
+
+#forms button {
+	margin: 0 auto;
+	display: block;
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+body .ui-datatable thead th {
+	background-color: #ddebe1;
+	color: #245b3b;
+	border: 1px solid #ddebe1;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+	border-bottom: 1px solid #bcd8c4;
+	color: #245b3b;
+}

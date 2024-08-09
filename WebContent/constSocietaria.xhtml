@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+
+<ui:define name="uniqueStyle">
+<h:head>
+	<link type="text/css" rel="stylesheet" 
+		href="#{request.contextPath}/static/css/constSocietaria.css" />
+</h:head> 
+</ui:define>
+
+	<ui:define name="titulo">Constituição Societária</ui:define>
+	<ui:define name="conteudo">
+	
+		<div id="forms">
+
+			<div>
+
+				<h2 class="titulo">Empresa</h2>
+				<h:form id="form1">
+					<p:growl life="5000" id="msg" />
+					<div class="formElementos">
+					<p:panelGrid columns="2" styleClass="panelGrid1">
+						<p:outputLabel value="Empresa:" for="empresa" />
+						<p:inputText value="#{constSocietariaBean.empresa.nome}" id="empresa"
+							required="true"
+							requiredMessage="Campo capital social obrigatório!" />
+						<p:outputLabel value="Capital social:" for="capitalSocial" />
+						<p:inputText value="#{constSocietariaBean.empresa.capitalSocial}"
+							id="capitalSocial" required="true"
+							requiredMessage="Campo capital social obrigatório!">
+							<a>100% = </a>
+						</p:inputText>
+					</p:panelGrid>
+					</div>
+					<p:commandButton styleClass="btnGravar" value="Gravar"
+							action="#{constSocietariaBean.gravarEmpresa()}" process="@form"
+							update="msg, @form, form2, form3" />
+				</h:form>
+
+			</div>
+
+			<div>
+
+				<h2 class="titulo">Sócios</h2>
+				<h:form id="form2">
+					<p:growl life="5000" id="msg" />
+					<div class="formElementos">
+						<p:panelGrid columns="2" styleClass="panelGrid1">
+							<p:outputLabel value="Nome:" for="nome" />
+							<p:inputText value="#{constSocietariaBean.socio.nome}" id="nome"
+								required="true" requiredMessage="Campo nome obrigatório!" />
+							<p:outputLabel value="Capital:" for="capital" />
+							<p:inputText value="#{constSocietariaBean.socio.capital}" id="capital"
+								required="true" requiredMessage="Campo capital obrigatório!" />
+						</p:panelGrid>
+					</div>
+					<p:commandButton styleClass="btnGravar2" value="Gravar"
+							action="#{constSocietariaBean.gravarSocio()}" process="@form"
+							update="msg, @form, form2, form3" />
+				</h:form>
+
+			</div>
+
+		</div>
+
+		<div class="tabela1">
+		
+			<div class="conteudoOg">
+
+				<h1 class="cabecalho">Orientações gerais</h1>
+				<p>1 - Itens obrigatórios:</p>
+				<p>1.1 - Antes da feira</p>
+				<ul>
+					<li>a) Dados da empresa</li>
+					<li>b) Orçamento de compras</li>
+					<li>c) Precificação de Produtos</li>
+					<li>d) Projeção de Vendas por Produto</li>
+					<li>e) Demonstração do Resultado do Exercício Projetado</li>
+				</ul>
+				<p>1.2 - Depois da feira</p>
+				<ul>
+					<li>a) Documentos Fiscais de Compra e Venda</li>
+					<li>b) Fichas de Controle de Estoque</li>
+					<li>c) Controle de Caixa</li>
+					<li>d) Detalhamento das Vendas</li>
+					<li>e) Demonstração do Resultado do Exercício</li>
+				</ul>
+				<p>Obs.: Preencha somente os campos com fundo branco da
+					planilha; os registros devem ser realizados no mínimo a cada hora
+					de operação; a Ficha de Controle de Estoque deve conter apenas 1
+					produto. Duplique-a se necessário.</p>
+
+			</div>
+
+			<div class="conteudoOg">
+				<h:form id="form3">
+				<h1 class="cabecalho2">
+					Empresa:
+					<h:outputText id="dadoNomeEmpresa" class="empresa"
+						value="#{constSocietariaBean.empresa.nome}" />
+				</h1>
+				<p class="titulo">Constituição societária</p>
+				<p:panelGrid id="dadoConstSocEmpresa" columns="3"
+					styleClass="panelGrid2">
+					<p>Constituição societária</p>
+					<h:outputText value="#{constSocietariaBean.empresa.capitalSocial}" />
+					<p>100%</p>
+				</p:panelGrid>
+				<p:dataTable id="dadoSocio" styleClass="dataTable"
+					value="#{constSocietariaBean.socios}" var="socioAtual" rows="5"
+					paginator="true">
+					<p:column headerText="Nome do sócio">
+						<p:outputLabel value="#{socioAtual.nome}" />
+					</p:column>
+					<p:column headerText="Capital">
+						<p:outputLabel value="#{socioAtual.capital}" />
+					</p:column>
+					
+				</p:dataTable>
+				<p:panelGrid id="panelGrid2" columns="3" styleClass="panelGrid2">
+					<p class="col1">Total</p>
+					<h:outputText value="#{constSocietariaBean.calcularSomaCapital()}" styleClass="col2" />
+					<h:outputText value="100%" styleClass="col2" />
+				</p:panelGrid>
+			</h:form>
+			</div>
+			
+		</div>
+<br/><br/><br/>
+	</ui:define>
+
+</ui:composition>
+
+</html>

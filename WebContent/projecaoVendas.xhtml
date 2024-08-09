@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="titulo">Projeção vendas</ui:define>
+	<ui:define name="conteudo">
+
+		<style>
+#conteudo {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.formElementos {
+	justify-content: center;
+	margin: 0 auto;
+	display: flex;
+}
+
+.formElementos label {
+	color: #245b3b;
+	font-weight: bold;
+}
+
+.formElementos input {
+	border: 1px solid #9ac5a8;
+}
+
+#formCreate button {
+	margin: 0 auto;
+	display: block;
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+#formCreate button:hover {
+	margin: 0 auto;
+	display: block;
+	background-color: #63861a;
+	border: 1px solid #63861a;
+}
+
+#formPesquisa button {
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+#formPesquisa button:hover {
+	background-color: #63861a;
+	border: 1px solid #63861a;
+}
+
+#formEdit button {
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+#formEdit button:hover {
+	background-color: #63861a;
+	border: 1px solid #63861a;
+}
+
+#formEdit {
+	margin: 0 auto;
+	width: 90%;
+}
+
+.formEdit {
+	margin: 0 auto;
+	width: 90%;
+}
+
+body .ui-datatable thead th {
+	background-color: #ddebe1;
+	color: #245b3b;
+	border: 1px solid #ddebe1;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+	border-bottom: 1px solid #bcd8c4;
+	color: #245b3b;
+}
+
+body .ui-button {
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+
+
+.principal {	
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.caixa-secundaria {
+	width: 390px;
+	padding: 10px;
+}
+
+.input-style {
+	width: 480px;
+}
+</style>
+
+		
+
+		
+
+			
+	<p:growl life="5000" id="msg" />
+		<h:form id="form">
+			<div class="principal">
+				<div class="caixa-secundaria">
+					<div>
+						<p:outputLabel value="Descrição" for="@next" /><br/>
+						<p:inputText class="input-style" value="#{projecaoVendasBean.rateio.descricao}" id="descricao" required="true"
+									requiredMessage="Campo descrição obrigatório!"  />
+					</div>
+					<br/>
+					<div>
+						<p:outputLabel value="Valor" for="@next" /><br/>
+						<p:inputText class="input-style" value="#{projecaoVendasBean.rateio.valor}" id="valor"
+									required="true" requiredMessage="Campo valor obrigatório!" />
+					</div>
+					<br/>
+					<div>
+						<p:outputLabel value="Despesa ou receita" for="@next" /><br/>
+						<p:selectOneMenu class="input-style" id="tipo" value="#{projecaoVendasBean.despRec}">
+							<f:selectItems value="#{projecaoVendasBean.tiposDespRec}" var="tipoAtual" itemLabel="#{tipoAtual.descricao}" itemValue="#{tipoAtual}" />
+						</p:selectOneMenu>
+					</div>
+					<br/>
+					<div>
+						<p:outputLabel value="Tipo do lucro" for="@next" /><br/>
+						<p:selectOneMenu class="input-style" id="tipoLucro" value="#{projecaoVendasBean.lucro}">
+							<f:selectItems value="#{projecaoVendasBean.tiposLucro}" var="tipoLucroAtual" itemLabel="#{tipoLucroAtual.descricao}" itemValue="#{tipoLucroAtual}" />
+						</p:selectOneMenu>
+					</div>
+					<br/>
+						<p:commandButton class="input-style" value="Gravar" action="#{projecaoVendasBean.gravar()}" process="@form" update="msg, @form, tableBruto, tableOperacional, tableLiquido, panelGridBruto, panelGridOperacional, panelGridLiquido" />
+				</div>
+			</div>	
+		</h:form>
+		<br/><br/>
+		<div class="cabecalho">
+					<h1>Projeção de vendas</h1>
+				</div>
+		
+		
+		
+			<br/><br/>
+		
+		
+		<div id="formEdit">
+			<p:dataTable value="#{projecaoVendasBean.produtos}" var="prodAtual" paginatorPosition="top"	 rows="20">
+				<p:column headerText="Produtos">
+					<h:outputText value="#{prodAtual.nome}" />
+				</p:column>
+				<p:column headerText="Vendas">
+					<h:outputText value="#{prodAtual.previsaoDemanda}" />
+				</p:column>
+				<p:column headerText="Preço">
+					<p:outputLabel value="#{prodAtual.precoVenda}">
+						<f:convertNumber type="currency" currencySymbol="R$" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Receita">
+					<h:inputHidden value="#{projecaoVendasBean.resultReceita(prodAtual)}" />
+						<p:outputLabel value="#{prodAtual.receita}">
+							<f:convertNumber type="currency" currencySymbol="R$" />
+					</p:outputLabel>
+				</p:column>
+				
+			</p:dataTable>
+			
+			
+			
+			<p:panelGrid id="panelGridProd" columns="4"
+					styleClass="panelGridProd" style="width: 100%">
+					<p class="col1">Total</p>
+					<h:outputText value="#{projecaoVendasBean.somaDemanda}"
+						tyleClass="col2" />
+					<h:outputText value="#{projecaoVendasBean.somaPreco}"
+						styleClass="col2">
+						<f:convertNumber type="currency" currencySymbol="R$" />
+					</h:outputText>
+					<h:outputText value="#{projecaoVendasBean.somaReceita}"
+						styleClass="col2">
+						<f:convertNumber type="currency" currencySymbol="R$" />
+					</h:outputText>
+				</p:panelGrid>
+		</div>	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<br/><br/>
+		
+		
+		
+		
+	
+	
+
+			<div>
+				<div class="cabecalho">
+					<h1>Demonstração do Resultado do Exercício Projetado</h1>
+				</div>
+				
+				<br/><br/>
+			<h:form id="tableBruto" class="formEdit">
+					<p:dataTable id="tableBruto" styleClass="dataTable"
+						value="#{projecaoVendasBean.listDRbruto}" var="listBrutoAtual"
+						rows="5" >
+						<p:column headerText="Lucro bruto">
+							<p:outputLabel value="#{listBrutoAtual.descricao}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<p:outputLabel value="#{listBrutoAtual.valor}" >
+								<f:convertNumber type="currency" currencySymbol="R$" />
+							</p:outputLabel>
+						</p:column>
+						<p:column headerText="Excluir">
+        					<p:commandButton value="Excluir" process="@form" action="#{projecaoVendasBean.excluir(listBrutoAtual.id)}" update="@form, msg, panelGridBruto, panelGridOperacional, panelGridLiquido" />
+        				</p:column>
+							
+					</p:dataTable>
+				</h:form>	
+					
+				<h:form id="panelGridBruto" class="formEdit">
+					<p:panelGrid id="panelGridBruto" columns="2"
+						styleClass="panelGrid1">
+						<p class="col1">(=) Lucro Bruto</p>
+						<h:outputText value="#{projecaoVendasBean.lucroBruto}" tyleClass="col2" >
+							<f:convertNumber type="currency" currencySymbol="R$" />
+						</h:outputText>
+					</p:panelGrid>
+					</h:form>
+
+				
+
+					<h:form id="tableOperacional" class="formEdit">
+					<p:dataTable id="tableOperacional" styleClass="dataTable"
+						value="#{projecaoVendasBean.listDRoperacional}"
+						var="listOperacionalAtual" rows="5" >
+						<p:column headerText="Lucro operacional">
+							<p:outputLabel value="#{listOperacionalAtual.descricao}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<p:outputLabel value="#{listOperacionalAtual.valor}" >
+								<f:convertNumber type="currency" currencySymbol="R$" />
+							</p:outputLabel>
+						</p:column>
+						<p:column headerText="Excluir">
+        					<p:commandButton value="Excluir" process="@form" action="#{projecaoVendasBean.excluir(listOperacionalAtual.id)}" update="@form, msg, panelGridBruto, panelGridOperacional, panelGridLiquido" />
+        				</p:column>
+					</p:dataTable>
+					</h:form>
+					
+					
+					<h:form id="panelGridOperacional" class="formEdit">
+						<p:panelGrid id="panelGridOperacional" columns="2"
+							styleClass="panelGrid2">
+							<p class="col1">(=) Lucro Operacional</p>
+							<h:outputText value="#{projecaoVendasBean.lucroOperacional}" tyleClass="col2" >
+								<f:convertNumber type="currency" currencySymbol="R$" />
+							</h:outputText>
+						</p:panelGrid>
+					</h:form>
+
+					<h:form id="tableLiquido" class="formEdit">
+					<p:dataTable id="tableLiquido" styleClass="dataTable"
+						value="#{projecaoVendasBean.listDRliquido}" var="listLiquidoAtual"
+						rows="5" paginator="false">
+						<p:column headerText="Lucro líquido">
+							<p:outputLabel value="#{listLiquidoAtual.descricao}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<p:outputLabel value="#{listLiquidoAtual.valor}" >
+								<f:convertNumber type="currency" currencySymbol="R$" />
+							</p:outputLabel>
+						</p:column>
+						<p:column headerText="Excluir">
+        					<p:commandButton value="Excluir" process="@form" action="#{projecaoVendasBean.excluir(listLiquidoAtual.id)}" update="@form, msg, panelGridBruto, panelGridOperacional, panelGridLiquido" />
+        				</p:column>
+					</p:dataTable>
+					</h:form>
+					
+					<h:form id="panelGridLiquido" class="formEdit">
+					<p:panelGrid id="panelGridLiquido" columns="2"
+						styleClass="panelGrid3">
+						<p class="col1">(=) Lucro Liquido</p>
+						<h:outputText value="#{projecaoVendasBean.lucroLiquido}" tyleClass="col2" >
+							<f:convertNumber type="currency" currencySymbol="R$" />
+						</h:outputText>
+					</p:panelGrid>
+					</h:form>
+				</div>
+		
+		<br/><br/><br/><br/>
+	</ui:define>
+</ui:composition>
+</html>

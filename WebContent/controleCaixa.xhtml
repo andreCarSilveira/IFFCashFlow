@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="template.xhtml">
+
+<ui:define name="uniqueStyle">
+<h:head>
+	<link type="text/css" rel="stylesheet" 
+		href="#{request.contextPath}/static/css/controleCaixa.css" />
+</h:head> 
+</ui:define>
+
+<ui:define name="titulo">Controle de Caixa</ui:define>
+
+<ui:define name="conteudo"> 
+<p:growl id="msg" life="5000"  />
+
+
+<h:form id="formCreate">
+
+	<div class="principal">
+		<div class="caixa-secundaria">
+			
+			<div>
+				<p:outputLabel value="Documento" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleCaixaBean.caixa.doc}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Data e hora" for="@next" /><br/>
+				<p:datePicker class="input-style" id="inline" value="#{controleCaixaBean.caixa.hora}"
+						inline="true" showTime="true" timeInput="true" />
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Histórico" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleCaixaBean.caixa.historico}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Meio pagamento" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleCaixaBean.caixa.meio}"/>
+			</div>
+			<br/>
+			<div>
+				<p:outputLabel value="Movimentação" for="@next" /><br/>
+				<p:inputText class="input-style" value="#{controleCaixaBean.caixa.saldo}"/>
+			</div>
+			<br/>
+			
+				<p:commandButton class="input-style" value="Gravar" action="#{controleCaixaBean.gravar()}"
+					process="@form" update="@form, msg, formEdit"/>
+			
+		</div>
+	</div>
+			
+</h:form>	
+
+
+
+
+
+<br /><br/>
+
+<h:form id="formEdit">
+	<p:dataTable value="#{controleCaixaBean.caixas}" var="caixaAtual" 
+			paginatorPosition="top" rows="20">
+		
+		<p:column headerText="Doc">
+			<h:outputText value="#{caixaAtual.doc}" />
+		</p:column>
+		<p:column headerText="Hora">
+			<h:outputText value="#{caixaAtual.hora}" />
+		</p:column>
+		<p:column headerText="Historico">
+			<h:outputText value="#{caixaAtual.historico}" />
+		</p:column>
+		<p:column headerText="Meio">
+			<h:outputText value="#{caixaAtual.meio}" />
+		</p:column>
+		
+		<p:column headerText="Saldo">
+			<p:outputLabel value="#{caixaAtual.saldo}">
+				<f:convertNumber type="currency" currencySymbol="R$" />
+			</p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Editar">
+			<p:commandButton action="#{controleCaixaBean.carregarCaixa(caixaAtual)}" 
+					value="Editar" process="@form" update="formCreate"/>
+		</p:column>
+		<p:column headerText="Excluir">
+        	<p:commandButton value="Excluir" process="@form" action="#{controleCaixaBean.excluir(caixaAtual)}" update="@form, msg" />
+        </p:column>
+	</p:dataTable>
+	
+	 <h:outputText value="Soma dos saldos: #{controleCaixaBean.calcularSomaSaldoCaixa()}" />
+	
+	
+</h:form>	
+<br/><br/><br/>
+
+</ui:define>	
+</ui:composition> 
+</html>

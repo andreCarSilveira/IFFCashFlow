@@ -1,0 +1,73 @@
+.formElementos {
+	justify-content: center;
+	margin: 0 auto;
+	display: flex;
+}
+
+.formElementos label {
+	color: #245b3b;
+	font-weight: bold;
+}
+
+.formElementos input {
+	border: 1px solid #9ac5a8;
+}
+
+#formCreate button {
+	margin: 0 auto;
+	display: block;
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+#formEdit {
+	margin: 0 auto;
+	width: 90%;
+}
+
+#formEdit button:hover {
+	background-color: #63861a;
+	border: 1px solid #63861a;
+}
+
+#formEdit {
+	margin: 0 auto;
+	width: 90%;
+}
+
+body .ui-datatable thead th {
+	background-color: #ddebe1;
+	color: #245b3b;
+	border: 1px solid #ddebe1;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+	border-bottom: 1px solid #bcd8c4;
+	color: #245b3b;
+}
+
+body .ui-button {
+	background-color: #6b8e23;
+	border: 1px solid #6b8e23;
+}
+
+
+
+
+.principal {	
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.caixa-secundaria {
+	width: 390px;
+	padding: 10px;
+}
+
+.input-style {
+	width: 480px;
+}
+
+
